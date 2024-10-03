@@ -27,7 +27,7 @@ function ProductList() {
     }
   }
 
-  const lastProductElementRef = useCallback(
+  const lastProductRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (loading) return
       if (observer.current) observer.current.disconnect()
@@ -47,10 +47,6 @@ function ProductList() {
     fetchProducts()
   }, [])
 
-  useEffect(() => {
-    console.log('products', products)
-  }, [products])
-
   const totalPrice = calculateTotalPrice(products)
 
   return (
@@ -60,7 +56,7 @@ function ProductList() {
       {products.map((_, index) => (
         <div
           key={_.productId}
-          ref={index === products.length - 1 ? lastProductElementRef : null} // 마지막 아이템일 경우 ref 설정
+          ref={index === products.length - 1 ? lastProductRef : null} // 마지막 아이템일 경우 ref 설정
         >
           <ProductItem data={_} loading={loading} />
         </div>
